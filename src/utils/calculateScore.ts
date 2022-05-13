@@ -8,15 +8,27 @@ Copyright (c) geekofia 2022 and beyond
 import { QuestionType } from "../types/question";
 import { SubmissionType } from "../types/submission";
 
+export const checkAnswer = (
+  question: QuestionType,
+  submission: SubmissionType
+): boolean => {
+  const { answer } = question;
+
+  if (submission[question.id]) {
+    return Number(submission[question.id]) === answer;
+  }
+
+  return false;
+};
+
 export const calculateScore = (
   questions: Array<QuestionType>,
   submission: SubmissionType
 ) => {
   return questions.reduce((prev, question: QuestionType) => {
-    if (question.answer === submission[question.id]) {
+    if (checkAnswer(question, submission)) {
       return prev + 1;
     }
-
     return prev;
   }, 0);
 };

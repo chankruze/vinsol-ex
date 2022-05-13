@@ -6,5 +6,5 @@ Copyright (c) geekofia 2022 and beyond
 */
 
 export type SubmissionType = {
-  [key: string]: number;
+  [key: string]: string;
 };

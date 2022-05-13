@@ -7,7 +7,7 @@ Copyright (c) geekofia 2022 and beyond
 
 import { useQuiz } from "../../contexts/quizContext";
 import { QuestionType } from "../../types/question";
-import { calculateScore } from "../../utils/calculateScore";
+import { calculateScore, checkAnswer } from "../../utils/calculateScore";
 
 const Result = () => {
   // @ts-ignore
@@ -27,7 +27,7 @@ const Result = () => {
             <div
               key={question.id}
               className={`flex my-1 p-2 flex-col rounded-md ${
-                submission[question.id] === question.answer
+                checkAnswer(question, submission)
                   ? "bg-green-100"
                   : "bg-red-100"
               }`}
