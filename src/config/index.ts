@@ -10,6 +10,6 @@ export const config = {
   APP_VERSION: "1.0.0",
   APP_DESCRIPTION: "A quiz app for solving arithmetic questions",
   APP_AUTHOR: "chankruze",
-  DEFAULT_TIMER: 10,
+  DEFAULT_TIMER: 20,
   DEFAULT_QUESTIONS_COUNT: 20,
 };

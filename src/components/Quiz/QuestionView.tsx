@@ -9,7 +9,6 @@ import { useEffect, useState } from "react";
 import { config } from "../../config";
 import { useQuiz } from "../../contexts/quizContext";
 import { QuestionType } from "../../types/question";
-import Question from "./Question";
 
 interface QuestionViewProps {
   endQuiz: () => void;
@@ -40,6 +39,16 @@ const QuestionView: React.FC<QuestionViewProps> = ({ endQuiz }) => {
     }
   };
 
+  const submit = () => {
+    // save the answer (mutate the submission object)
+    setSubmission({
+      ...submission,
+      [activeQuestion.id]: activeQuestionAnswer,
+    });
+    // end quiz
+    endQuiz();
+  };
+
   useEffect(() => {
     // set timer
     const interval = setInterval(() => {
@@ -51,8 +60,7 @@ const QuestionView: React.FC<QuestionViewProps> = ({ endQuiz }) => {
     // 2.  move to result view
     if (timer === 0 && activeQuestionIndex === questions.length - 1) {
       clearInterval(interval);
-      // TODO: move to result view
-      endQuiz();
+      submit();
       return;
     }
 
@@ -87,13 +95,14 @@ const QuestionView: React.FC<QuestionViewProps> = ({ endQuiz }) => {
       <div className="flex-1 flex justify-center items-center">
         <div className="p-2 flex flex-col justify-center items-center">
           {/* question */}
-          <p className="text-xl">{activeQuestion.question}</p>
+          <p className="text-3xl font-bold">{activeQuestion.question}</p>
           {/* answer */}
           <div className="py-4">
             <input
               type="number"
               placeholder="Enter your answer"
-              className="p-3 text-xl bg-slate-100 outline-fuchsia-400"
+              className="p-3 text-xl bg-slate-50 border-b-2 border-b-fuchsia-400 
+              focus:outline-none rounded-t-md"
               onChange={(e) => setActiveQuestionAnswer(e.target.value)}
               value={activeQuestionAnswer}
             />
@@ -101,7 +110,7 @@ const QuestionView: React.FC<QuestionViewProps> = ({ endQuiz }) => {
         </div>
       </div>
       {/* render the next button only the next question is available */}
-      {timer !== 0 && (
+      {activeQuestionIndex < questions.length - 1 ? (
         <div
           className="h-16 bg-blue-600 text-white border-t tracking-widest 
           flex items-center justify-center cursor-pointer text-xl 
@@ -109,6 +118,15 @@ const QuestionView: React.FC<QuestionViewProps> = ({ endQuiz }) => {
           onClick={nextQuestion}
         >
           <p className="uppercase text-sm">next</p>
+        </div>
+      ) : (
+        <div
+          className="h-16 bg-blue-600 text-white border-t tracking-widest 
+        flex items-center justify-center cursor-pointer text-xl 
+        hover:bg-blue-600/80 duration-150"
+          onClick={submit}
+        >
+          <p className="uppercase text-sm">submit</p>
         </div>
       )}
     </div>

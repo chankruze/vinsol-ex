@@ -24,21 +24,27 @@ const Quiz = () => {
     setQuizStatus(QuizStatus.ACTIVE);
   };
 
+  const endQuiz = () => {
+    setQuizStatus(QuizStatus.OVER);
+  };
+
   return (
-    <div className="flex-1 bg-white overflow-y-auto">
-      <QuizProvider>
+    <QuizProvider>
+      <div className="flex-1 bg-white overflow-y-auto">
         {/* quiz is active */}
         {quizStatus === QuizStatus.ACTIVE && (
-          <ActiveQuiz endQuiz={() => setQuizStatus(QuizStatus.OVER)} />
+          // reset logic 1: reset quiz
+          // <ActiveQuiz endQuiz={endQuiz} resetQuiz={resetQuiz} />
+          <ActiveQuiz endQuiz={endQuiz} />
         )}
         {/* quiz ended */}
         {quizStatus === QuizStatus.OVER && <Result />}
-      </QuizProvider>
-      {/* quiz is inactive (not started) */}
-      {quizStatus === QuizStatus.INACTIVE && (
-        <InactiveQuiz startQuiz={startQuiz} />
-      )}
-    </div>
+        {/* quiz is inactive (not started) */}
+        {quizStatus === QuizStatus.INACTIVE && (
+          <InactiveQuiz startQuiz={startQuiz} />
+        )}
+      </div>
+    </QuizProvider>
   );
 };
 

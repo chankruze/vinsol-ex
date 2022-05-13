@@ -7,13 +7,18 @@ Copyright (c) geekofia 2022 and beyond
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLDivElement> {
   children: React.ReactNode;
+  bg?: string;
 }
 
-const Button: React.FC<ButtonProps> = ({ children, onClick }) => {
+const Button: React.FC<ButtonProps> = ({
+  children,
+  onClick,
+  bg = "bg-blue-500",
+}) => {
   return (
     <div
-      className="p-3 text-white bg-blue-600 flex items-center gap-2 justify-center 
-      cursor-pointer hover:bg-blue-600/80 rounded-md"
+      className={`py-2 px-3 text-white flex items-center gap-2 justify-center 
+      cursor-pointer ${bg} hover:opacity-80 rounded-md`}
       onClick={onClick}
     >
       {children}

@@ -31,7 +31,7 @@ export const generateQuestions = (
       const question: QuestionType = {
         id: nanoid(),
         question: q,
-        answer: eval(q),
+        answer: ~~eval(q),
         // timer: timer,
       };
       questions.push(question);
