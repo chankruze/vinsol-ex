@@ -12,7 +12,11 @@ interface LayoutProps {
 }
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
-  return <div className="min-h-screen flex gap-2 bg-gray-100">{children}</div>;
+  return (
+    <div className="h-screen flex gap-1 bg-gray-100 overflow-hidden">
+      {children}
+    </div>
+  );
 };
 
 export default Layout;
